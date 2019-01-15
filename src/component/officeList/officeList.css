@@ -1,0 +1,20 @@
+.office-list {
+  position: relative;
+  padding: 2em 2em 2em;
+  border: 1px solid #d8d8d8;
+  border-radius: 1rem;
+  margin: 5.5rem 0 0;
+}
+
+.card {
+  border: 1px solid #d8d8d8;
+  border-radius: 1rem;
+  margin-right: 2em;
+  margin-bottom: 2em;
+}
+
+.back-to-overview {
+  display: inline;
+  align-items: right;
+}
+

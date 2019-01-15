@@ -18,6 +18,7 @@ export default class OfficeForm extends Component {
   }
 
   handleChange(e){
+    e.preventDefault()
     const {name, value} = e.target
     this.setState({ [name]: value })
   }
@@ -34,7 +35,7 @@ export default class OfficeForm extends Component {
 
   render(){
     return(
-      <div class="form">
+      <div className="form">
         <h2>Create Office</h2>
         <Form>
           <FormGroup>
@@ -45,51 +46,44 @@ export default class OfficeForm extends Component {
               value={this.state.name}
               placeholder="Enter text"
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
             />
           </FormGroup>
           <FormGroup>
             <Label>Location:</Label>
-              <Input
-                type="text"
-                name="location"
-                value={this.state.location}
-                placeholder="Enter text"
-                onChange={this.handleChange}
-                class="form-control"
-              />
+            <Input
+              type="text"
+              name="location"
+              value={this.state.location}
+              placeholder="Enter text"
+              onChange={this.handleChange}
+              className="form-control"
+            />
           </FormGroup>
           <FormGroup>
             <Label>Office Start Date:</Label>
-              <Input
-                type="text"
-                name="startDate"
-                value={this.state.startDate}
-                placeholder="Enter text"
-                onChange={this.handleChange}
-                class="form-control"
-              />
+            <Input
+              type="text"
+              name="startDate"
+              value={this.state.startDate}
+              placeholder="Enter text"
+              onChange={this.handleChange}
+              className="form-control"
+            />
           </FormGroup>
           <FormGroup>
             <Label>Company:</Label>
-              <Input
-                type="text"
-                name="company"
-                value={this.state.company}
-                placeholder="Enter text"
-                onChange={this.handleChange}
-                class="form-control"
-              />
+            <Input
+              type="text"
+              name="company"
+              value={this.state.company}
+              placeholder="Enter text"
+              onChange={this.handleChange}
+              className="form-control"
+            />
           </FormGroup>
         </Form>
         <Button onClick={this.handleSubmit} color="primary">Submit</Button>{' '}
-        {this.props.office.map((data, key) => (<ul>
-          <li key={key.name}>{data.name}</li>
-          <li key={key.location}>{data.location}</li>
-          <li key={key.startDate}>{data.startDate}</li>
-          <li key={key.company}>{data.company}</li>
-        </ul>)
-        )}
       </div>
     )
   }

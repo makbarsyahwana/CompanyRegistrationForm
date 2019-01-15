@@ -35,6 +35,7 @@ export default class RegistrationForm extends Component {
   }
 
   handleChange(e){
+    e.preventDefault()
     const {name, value} = e.target
     this.setState({ [name]: value })
   }
@@ -64,7 +65,7 @@ export default class RegistrationForm extends Component {
     const isEnabled = (name.length && address.length && revenue.length && code.length && phoneNo.length) > 0
     return(
 
-      <div class="form">
+      <div className="form">
         <h2>Create Company</h2>
 
         {
@@ -79,7 +80,7 @@ export default class RegistrationForm extends Component {
               value={this.state.name}
               placeholder="Input Your Name"
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
             />
           </FormGroup>
           <FormGroup>
@@ -90,7 +91,7 @@ export default class RegistrationForm extends Component {
                 value={this.state.address}
                 placeholder="Input Your Address"
                 onChange={this.handleChange}
-                class="form-control"
+                className="form-control"
               />
           </FormGroup>
           <FormGroup>
@@ -101,7 +102,7 @@ export default class RegistrationForm extends Component {
                 value={this.state.revenue}
                 placeholder="Input Positive Number"
                 onChange={this.handleChange}
-                class="form-control"
+                className="form-control"
               />
           </FormGroup>
           <FormGroup>
@@ -114,7 +115,7 @@ export default class RegistrationForm extends Component {
                     value={this.state.code}
                     placeholder="Code"
                     onChange={this.handleChange}
-                    class="form-control"
+                    className="form-control"
                   />
                 </Col>
                 <Col md={10}>
@@ -124,7 +125,7 @@ export default class RegistrationForm extends Component {
                     value={this.state.phoneNo}
                     placeholder="Input Your Phone Number"
                     onChange={this.handleChange}
-                    class="form-control"
+                    className="form-control"
                   />
                 </Col>
               </Row>
