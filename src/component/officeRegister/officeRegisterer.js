@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Alert, Label, Input } from 'reactstrap';
 import './officeRegister.css';
+
+const validate = (name, lat, long, startDate) => {
+  // we are going to store errors for all fields
+  // in a signle array
+  const errors = [];
+
+  if ((name.length && lat.length && long.length && startDate.length) === 0) {
+    errors.push("Name can't be empty");
+  }
+
+  if (lat.match(/(((|)\d*\.\d*)|((|)\d*(\.|,)\d*))/gm)) {
+    errors.push("latitude must be a positive number")
+  }
+
+  if (long.match(/(((|)\d*\.\d*)|((|)\d*(\.|,)\d*))/gm)) {
+    errors.push("longitude must be a positive number");
+  }
+
+  return errors;
+}
 
 
 export default class OfficeForm extends Component {
@@ -8,9 +28,11 @@ export default class OfficeForm extends Component {
     super(props)
     this.state = {
       name: '',
-      location: '',
+      lat: '',
+      long: '',
       startDate: '',
-      company:''
+      company:'',
+      errors: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,19 +46,37 @@ export default class OfficeForm extends Component {
   }
 
   handleSubmit(){
-    this.props.submitNewOffice(this.state)
-    this.setState({
-      name: '',
-      location: '',
-      startDate: '',
-      company:''
-    })
+    const { name, lat, long, startDate, company } = this.state;
+    const errors = validate(name, lat, long, startDate, company);
+    if (errors.length > 0) {
+      this.setState({ errors });
+      return;
+    } else {
+      this.props.submitNewOffice(this.state)
+      this.setState({
+        name: '',
+        lat: '',
+        long: '',
+        startDate: '',
+        company:'',
+        errors: []
+      })
+    }
   }
 
+  
+
   render(){
+
+    const { name, lat, long, startDate, errors } = this.state
+    const isEnabled = (name.length && lat.length && long.length && startDate.length) > 0
+
     return(
       <div className="form">
         <h2>Create Office</h2>
+        {
+          errors.map(data => <Alert color="danger" key={data}>Error Message : {data}</Alert>)
+        }
         <Form>
           <FormGroup>
             <Label>Name:</Label>
@@ -44,21 +84,35 @@ export default class OfficeForm extends Component {
               type="text"
               name="name"
               value={this.state.name}
-              placeholder="Enter text"
+              placeholder="Input Your Office Name"
               onChange={this.handleChange}
               className="form-control"
             />
           </FormGroup>
           <FormGroup>
             <Label>Location:</Label>
-            <Input
-              type="text"
-              name="location"
-              value={this.state.location}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-              className="form-control"
-            />
+            <Row>
+              <Col md={6}>
+                <Input
+                  type="text"
+                  name="lat"
+                  value={this.state.lat}
+                  placeholder="Latitude"
+                  onChange={this.handleChange}
+                  className="form-control"
+                />
+              </Col>
+              <Col md={6}>  
+                <Input
+                  type="text"
+                  name="long"
+                  value={this.state.long}
+                  placeholder="Longitude"
+                  onChange={this.handleChange}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
           </FormGroup>
           <FormGroup>
             <Label>Office Start Date:</Label>
@@ -66,7 +120,7 @@ export default class OfficeForm extends Component {
               type="text"
               name="startDate"
               value={this.state.startDate}
-              placeholder="Enter text"
+              placeholder="Input Office Start Date"
               onChange={this.handleChange}
               className="form-control"
             />
@@ -74,16 +128,21 @@ export default class OfficeForm extends Component {
           <FormGroup>
             <Label>Company:</Label>
             <Input
-              type="text"
+              type="select"
               name="company"
-              value={this.state.company}
-              placeholder="Enter text"
-              onChange={this.handleChange}
+              placeholder="Input Company"
+              onClick={this.handleChange}
               className="form-control"
-            />
+            >
+              {
+                this.props.company.map((company, key) => (
+                  <option key={key} value={company.name}>{company.name}</option>
+                ))
+              }
+            </Input>
           </FormGroup>
         </Form>
-        <Button onClick={this.handleSubmit} color="primary">Submit</Button>{' '}
+        <Button disabled={!isEnabled} onClick={this.handleSubmit} color="primary">Submit</Button>{' '}
       </div>
     )
   }

@@ -15,6 +15,14 @@ const validate = (name, address, revenue, code, phoneNo) => {
     errors.push("revenue must be a positive")
   }
 
+  if (!code.match(/\d+(\.\d{0,9})?/gm)) {
+    errors.push("Your Phone Code Is Invalid")
+  }
+
+  if (!phoneNo.match(/\d+(\.\d{0,9})?/gm)) {
+    errors.push("Your Phone Number Is Invalid")
+  }
+
   return errors;
 }
 
@@ -69,7 +77,7 @@ export default class RegistrationForm extends Component {
         <h2>Create Company</h2>
 
         {
-          errors.map(data => <Alert color="danger" key={data}>Error Message : {data}</Alert>)
+          errors.map(data => <Alert color="danger" key={data}>Error: {data}</Alert>)
         }
         <Form>
           <FormGroup>
