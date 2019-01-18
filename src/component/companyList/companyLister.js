@@ -14,7 +14,12 @@ export default class CompanyLister extends Component {
     document.getElementById('companiesModal').style.display = "flex"
   }
 
-  handleCloseModal(companyKey){
+  closeModal(){
+    document.getElementById('companiesModal').style.display = "none"
+
+  }
+
+  handleDeleteItem(companyKey){
     this.props.closeCompany(companyKey)
     document.getElementById('companiesModal').style.display = "none"
   }
@@ -33,7 +38,8 @@ export default class CompanyLister extends Component {
                     <div id="companiesModal" class="modal">
                       <div class="modal-content">
                         <p>Are You Sure Want to Delete This Company</p>
-                        <span class="close"><Button onClick={this.handleCloseModal.bind(this, key)}>I'm Sure</Button></span>
+                        <span class="close-button"><Button color="success" onClick={this.handleDeleteItem.bind(this, key)}>I'm Sure</Button></span>
+                        <span class="close-button"><Button color="danger" onClick={this.closeModal.bind(this)}>Not Sure</Button></span>
                       </div>
                     </div>
                     <Button onClick={this.openModal.bind(this)} close />
