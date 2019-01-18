@@ -10,8 +10,13 @@ export default class CompanyLister extends Component {
 
 
 
-  handleClose(companyKey){
+  openModal(){
+    document.getElementById('companiesModal').style.display = "flex"
+  }
+
+  handleCloseModal(companyKey){
     this.props.closeCompany(companyKey)
+    document.getElementById('companiesModal').style.display = "none"
   }
 
   render() {
@@ -25,7 +30,13 @@ export default class CompanyLister extends Component {
                 <Card>
                   <CardHeader tag="h1" key={key.name}>
                     <Link to={`/officeLister/${company.name}`}>{company.name}</Link>
-                    <Button onClick={this.handleClose.bind(this, key)} close />
+                    <div id="companiesModal" class="modal">
+                      <div class="modal-content">
+                        <p>Are You Sure Want to Delete This Company</p>
+                        <span class="close"><Button onClick={this.handleCloseModal.bind(this, key)}>I'm Sure</Button></span>
+                      </div>
+                    </div>
+                    <Button onClick={this.openModal.bind(this)} close />
                   </CardHeader>
                   <CardBody>
                     <span>

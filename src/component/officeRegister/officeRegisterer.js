@@ -11,11 +11,11 @@ const validate = (name, lat, long, startDate) => {
     errors.push("Name can't be empty");
   }
 
-  if (lat.match(/(((|)\d*\.\d*)|((|)\d*(\.|,)\d*))/gm)) {
+  if (!lat.match(/^(0*[1-9][0-9]*(\.[0-9]*)?|0*\.[0-9]*[1-9][0-9]*)$/gm)) {
     errors.push("latitude must be a positive number")
   }
 
-  if (long.match(/(((|)\d*\.\d*)|((|)\d*(\.|,)\d*))/gm)) {
+  if (!long.match(/^(0*[1-9][0-9]*(\.[0-9]*)?|0*\.[0-9]*[1-9][0-9]*)$/gm)) {
     errors.push("longitude must be a positive number");
   }
 
@@ -30,7 +30,7 @@ export default class OfficeForm extends Component {
       name: '',
       lat: '',
       long: '',
-      startDate: '',
+      startDate: new Date(),
       company:'',
       errors: []
     }
@@ -43,6 +43,7 @@ export default class OfficeForm extends Component {
     e.preventDefault()
     const {name, value} = e.target
     this.setState({ [name]: value })
+    this.setState({ startDate: Date})
   }
 
   handleSubmit(){
@@ -117,7 +118,7 @@ export default class OfficeForm extends Component {
           <FormGroup>
             <Label>Office Start Date:</Label>
             <Input
-              type="text"
+              type="date"
               name="startDate"
               value={this.state.startDate}
               placeholder="Input Office Start Date"

@@ -59,8 +59,13 @@ function ListofOffice({office, companyName, closeOffice}){
     return office.company === companyName
   })
 
-  const handleClose = (officeKey) => {
+  const handleCloseModal = (officeKey) => {
     closeOffice(officeKey)
+    document.getElementById('officesModal').style.display = "none"
+  }
+
+  const openModal = () => {
+    document.getElementById('officesModal').style.display = "flex"
   }
 
   return(
@@ -72,7 +77,13 @@ function ListofOffice({office, companyName, closeOffice}){
             <Card key={key}>
                   <CardHeader tag="h1" key={key.name}>
                     {offices.name}
-                    <Button onClick={handleClose.bind(this, key)} close />
+                    <div id="officesModal" class="modal">
+                      <div class="modal-content">
+                        <p>Are You Sure Want to Delete This Company</p>
+                        <span class="close"><Button onClick={handleCloseModal.bind(this, key)}>I'm Sure</Button></span>
+                      </div>
+                    </div>
+                    <Button onClick={openModal.bind(this)} close />
                   </CardHeader>
                   <CardBody>
                     <span>
