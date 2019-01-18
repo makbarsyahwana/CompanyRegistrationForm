@@ -30,7 +30,7 @@ export default class OfficeForm extends Component {
       name: '',
       lat: '',
       long: '',
-      startDate: new Date(),
+      startDate: '',
       company:'',
       errors: []
     }
@@ -43,7 +43,6 @@ export default class OfficeForm extends Component {
     e.preventDefault()
     const {name, value} = e.target
     this.setState({ [name]: value })
-    this.setState({ startDate: Date})
   }
 
   handleSubmit(){
@@ -118,9 +117,9 @@ export default class OfficeForm extends Component {
           <FormGroup>
             <Label>Office Start Date:</Label>
             <Input
+              id="startDate"
               type="date"
               name="startDate"
-              value={this.state.startDate}
               placeholder="Input Office Start Date"
               onChange={this.handleChange}
               className="form-control"
