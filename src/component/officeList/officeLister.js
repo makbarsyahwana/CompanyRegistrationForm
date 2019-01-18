@@ -84,7 +84,7 @@ function ListofOffice({office, companyName, closeOffice}){
                     {offices.name}
                     <div id="officesModal" class="modal">
                       <div class="modal-content">
-                        <p>Are You Sure Want to Delete This Company</p>
+                        <p>Are You Sure Want to Delete This Office</p>
                         <span class="close-button"><Button color="success" onClick={handleDeleteItem.bind(this, key)}>I am Sure</Button></span>
                         <span class="close-button"><Button color="danger"onClick={closeModal.bind(this)}>Not Sure</Button></span>
                       </div>
